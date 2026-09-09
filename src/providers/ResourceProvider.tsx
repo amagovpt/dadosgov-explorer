@@ -364,9 +364,15 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
           case "page":
             setPage(value ? Number(value) || INITIAL_PAGE : INITIAL_PAGE);
             break;
-          case "page_size":
-            setPageSize(value ? Number(value) || PAGE_SIZES[0] : PAGE_SIZES[0]);
+          case "page_size": {
+            const parsedPageSize = value ? Number(value) : NaN;
+            setPageSize(
+              PAGE_SIZES.includes(parsedPageSize as (typeof PAGE_SIZES)[number])
+                ? parsedPageSize
+                : PAGE_SIZES[0]
+            );
             break;
+          }
           case VIEW_URL_PARAM:
             if (VIEW_TYPES.includes(value as ViewType)) {
               setView(value as ViewType);
