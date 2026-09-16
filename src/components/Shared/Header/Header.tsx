@@ -4,7 +4,6 @@ import { ECOSYSTEM, FLAGS, languages } from "@/services/consts/header";
 import { stripLocale } from "@/utils/stripLocale";
 import {
   Anchor,
-  Areas,
   Brand,
   GeneralBar,
   Header as HeaderADS,
@@ -19,7 +18,6 @@ import {
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
