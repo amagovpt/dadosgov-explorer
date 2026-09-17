@@ -27,7 +27,8 @@
       "connectionFailed": "API connection failed",
       "serverError": "Internal server error",
       "fetchDataFailed": "Failed to fetch resource data:",
-      "fetchStructureFailed": "Failed to fetch resource structure:"
+      "fetchStructureFailed": "Failed to fetch resource structure:",
+      "invalidNumber": "formatNumber: invalid value received: \"{{value}}\""
     }
   },
   "header": {
