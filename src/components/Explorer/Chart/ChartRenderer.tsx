@@ -33,9 +33,11 @@ import {
 } from "react-chartjs-2";
 import { useChartContext } from "@/hooks/useChartContext";
 import { useDataContext } from "@/hooks/useDataContext";
+import { useViewContext } from "@/hooks/useViewContext";
 import { ChartType } from "@/services/types/charts";
 import { getChartColor } from "@/services/utils/charts";
 import { useTranslation } from "react-i18next";
+import { twJoin } from "tailwind-merge";
 
 ChartJS.register(
   CategoryScale,
@@ -74,6 +76,7 @@ export default function ChartRenderer() {
   const { data: resourceData } = useDataContext();
   const { xAxisKey, yAxisKeys, rAxisKey, chart, chartRef, exportChartAsPng } =
     useChartContext();
+  const { isFullscreen } = useViewContext();
 
   const { t: te } = useTranslation("explorer");
 
@@ -138,6 +141,7 @@ export default function ChartRenderer() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: !isFullscreen,
     plugins: {
       legend: {
         display: true,
@@ -159,7 +163,12 @@ export default function ChartRenderer() {
   }
 
   return (
-    <div className={"w-full h-full bg-white flex flex-col gap-16"}>
+    <div
+      className={twJoin(
+        "relative w-full bg-white",
+        isFullscreen && "flex-1 min-h-[320px]",
+      )}
+    >
       {chartToRender}
     </div>
   );

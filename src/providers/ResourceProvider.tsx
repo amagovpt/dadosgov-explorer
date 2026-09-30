@@ -2,12 +2,17 @@
 
 import { getData } from "@/app/[locale]/explorer/[resource_id]/actions";
 import {
+  CHART_PAGE_SIZE,
   FilterOperatorAll,
   INITIAL_PAGE,
   PAGE_SIZES,
   VIEW_TYPES,
 } from "@/services/consts/explorer";
-import { CHART_URL_PARAM_KEYS, VIEW_URL_PARAM } from "@/services/consts/urlParams";
+import {
+  CHART_PAGE_URL_PARAM,
+  CHART_URL_PARAM_KEYS,
+  VIEW_URL_PARAM,
+} from "@/services/consts/urlParams";
 import {
   DatasetProfileResponse,
   FilterOperatorType,
@@ -52,6 +57,8 @@ export type PaginationContextType = {
   setPage: Dispatch<number>;
   pageSize: number;
   setPageSize: Dispatch<number>;
+  chartPage: number;
+  setChartPage: Dispatch<number>;
 
   sortColumn: string | null;
   setSortColumn: Dispatch<string | null>;
@@ -118,6 +125,7 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
 
   const [page, setPage] = useState<number>(INITIAL_PAGE);
   const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
+  const [chartPage, setChartPage] = useState<number>(INITIAL_PAGE);
 
   const [view, setView] = useState<ViewType>(VIEW_TYPES[0]);
 
@@ -144,6 +152,10 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
   const explorerContainerRef = useRef<HTMLDivElement | null>(null);
 
   const headers: string[] = structure?.profile.header ?? [];
+  const isChartView: boolean = view === "chart";
+  const requestPage: number = isChartView ? chartPage : page;
+  const requestPageSize: number = isChartView ? CHART_PAGE_SIZE : pageSize;
+
   const nHeaders: number = Object.values(headers).length;
   const nHeadersVisible: number = Object.values(headersVisibility).filter((v) => v === true).length;
 
@@ -170,8 +182,8 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
         const response: ResourceDataResponse = await getData(
           locale,
           resourceId,
-          page,
-          pageSize,
+          requestPage,
+          requestPageSize,
           sortColumn,
           sortDirection,
           headers,
@@ -219,8 +231,8 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
     locale,
     startDataTransition,
     resourceId,
-    page,
-    pageSize,
+    requestPage,
+    requestPageSize,
     sortColumn,
     sortDirection,
     headers,
@@ -240,10 +252,10 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
       appliedFilters.current ?? {},
       columnsForFilters,
       view,
-      extraUrlParams.current
+      { ...extraUrlParams.current, [CHART_PAGE_URL_PARAM]: String(chartPage) }
     );
     window.history.replaceState(null, "", `${window.location.pathname}?${params}`);
-  }, [page, pageSize, sortColumn, sortDirection, headers, getColumnsForFilters, view]);
+  }, [page, pageSize, chartPage, sortColumn, sortDirection, headers, getColumnsForFilters, view]);
 
   useEffect(() => {
     setUrlParamsRef.current = setUrlParams;
@@ -288,6 +300,7 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
     appliedHeadersVisibility.current = { ...headersVisibility };
 
     setPage(INITIAL_PAGE);
+    setChartPage(INITIAL_PAGE);
 
     void setUrlParams();
     void loadData();
@@ -309,6 +322,7 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
     appliedHeadersVisibility.current = { ...fv };
 
     setPage(INITIAL_PAGE);
+    setChartPage(INITIAL_PAGE);
 
     void setUrlParams();
     void loadData();
@@ -373,6 +387,9 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
             );
             break;
           }
+          case CHART_PAGE_URL_PARAM:
+            setChartPage(value ? Number(value) || INITIAL_PAGE : INITIAL_PAGE);
+            break;
           case VIEW_URL_PARAM:
             if (VIEW_TYPES.includes(value as ViewType)) {
               setView(value as ViewType);
@@ -424,13 +441,13 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
     if (!isReady) return;
 
     void setUrlParams();
-  }, [page, pageSize, sortColumn, sortDirection, view, isReady]);
+  }, [page, pageSize, chartPage, sortColumn, sortDirection, view, isReady]);
 
   useEffect(() => {
     if (!resourceId || !isReady) return;
 
     void loadData();
-  }, [resourceId, isReady, page, pageSize, sortColumn, sortDirection, loadData]);
+  }, [resourceId, isReady, requestPage, requestPageSize, sortColumn, sortDirection, loadData]);
 
   useEffect(() => {
     if (!isReady) return;
@@ -498,12 +515,14 @@ export function ResourceProvider({ locale, resourceId, structure, children }: Re
       setPage,
       pageSize,
       setPageSize,
+      chartPage,
+      setChartPage,
       sortColumn,
       setSortColumn,
       sortDirection,
       setSortDirection,
     }),
-    [page, pageSize, sortColumn, sortDirection]
+    [page, pageSize, chartPage, sortColumn, sortDirection]
   );
 
   const viewValue = useMemo<ViewContextType>(

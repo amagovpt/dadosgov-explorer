@@ -3,6 +3,8 @@
 import { useTranslation } from "react-i18next";
 import { useDataContext } from "@/hooks/useDataContext";
 import { useChartContext } from "@/hooks/useChartContext";
+import { useViewContext } from "@/hooks/useViewContext";
+import { twJoin } from "tailwind-merge";
 import ChartSelectors from "../Chart/ChartSelectors";
 import ChartRenderer from "../Chart/ChartRenderer";
 import ChartPagination from "../Chart/ChartPagination";
@@ -11,6 +13,7 @@ export default function ChartView() {
   const { t: te } = useTranslation("explorer");
   const { data } = useDataContext();
   const { hasNumericData } = useChartContext();
+  const { isFullscreen } = useViewContext();
 
   const hasData = (data?.data ?? []).length > 0;
 
@@ -31,7 +34,12 @@ export default function ChartView() {
   }
 
   return (
-    <div className="flex flex-col gap-32 bg-white fullscreen:p-24 fullscreen:overflow-auto">
+    <div
+      className={twJoin(
+        "flex flex-col gap-32 bg-white",
+        isFullscreen && "flex-1 min-h-0",
+      )}
+    >
       <ChartSelectors />
       <ChartRenderer />
       <ChartPagination />
