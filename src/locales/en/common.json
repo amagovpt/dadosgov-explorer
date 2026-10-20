@@ -16,7 +16,7 @@
       "subtitle": "We couldn't complete your request at this time.",
       "description": "There was a problem processing the requested information. Please try again in a few moments or return to the homepage to keep browsing the portal.",
       "goBack": "Go back",
-      "tryAgain": "Try again"
+      "tryAgain": "Refresh page"
     },
     "resourceNotFound": {
       "error": "Error 404",
