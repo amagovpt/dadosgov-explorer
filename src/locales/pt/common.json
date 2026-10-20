@@ -37,6 +37,7 @@
     }
   },
   "header": {
+    "generalBarTitle": "Explorador nacional de dados abertos",
     "selectLanguage": "Selecionar idioma",
     "ecosystem": {
       "btn": "Ecossistema",

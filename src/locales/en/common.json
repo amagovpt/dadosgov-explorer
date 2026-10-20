@@ -37,6 +37,7 @@
     }
   },
   "header": {
+    "generalBarTitle": "National open data explorer",
     "selectLanguage": "Select language",
     "ecosystem": {
       "btn": "Ecosystem",

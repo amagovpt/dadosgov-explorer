@@ -17,7 +17,8 @@ import {
 } from "@ama-pt/agora-design-system";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 const LOGO =
@@ -31,13 +32,24 @@ export default function Header(args: HeaderProps) {
 
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
 
+  // GeneralBar only renders the design system's own children, so the title is portaled into it
+  const headerRef = useRef<HTMLElement>(null);
+  const [generalBar, setGeneralBar] = useState<Element | null>(null);
+
+  useEffect(() => {
+    setGeneralBar(headerRef.current?.querySelector("div.general-bar") ?? null);
+  }, []);
+
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);
     routerNav.push(`/${lang}/${noLocalePath}`);
   };
 
   return (
-    <header className="[&_.custom-search-layout]:m-0! [&_.custom-search-layout]:mx-auto! [&_.ecosystem-panel-title]:text-m-bold!">
+    <header
+      ref={headerRef}
+      className="[&_.custom-search-layout]:m-0! [&_.custom-search-layout]:mx-auto! [&_.ecosystem-panel-title]:text-m-bold!"
+    >
       <HeaderADS {...args}>
         <Brand>
           <Logo>
@@ -104,6 +116,14 @@ export default function Header(args: HeaderProps) {
           </EcosystemPanel>
         </GeneralBar>
       </HeaderADS>
+
+      {generalBar &&
+        createPortal(
+          <span className="general-bar-title self-center text-m-regular text-neutral-900">
+            {t("header.generalBarTitle")}
+          </span>,
+          generalBar
+        )}
     </header>
   );
 }
