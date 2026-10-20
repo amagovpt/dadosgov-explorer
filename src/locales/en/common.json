@@ -10,9 +10,11 @@
       "subtitle": "We couldn't find the resource you're looking for.",
       "description": "The content may have been removed or changed, or the address you entered may be incorrect. Explore the datasets available on dados.gov.pt."
     },
-    "generic": {
-      "title": "Something went wrong",
-      "description": "An unexpected error occurred. Please try again later.",
+    "server": {
+      "error": "Error 500",
+      "title": "Something didn't go as expected",
+      "subtitle": "We couldn't complete your request at this time.",
+      "description": "There was a problem processing the requested information. Please try again in a few moments or return to the homepage to keep browsing the portal.",
       "goBack": "Go back",
       "tryAgain": "Try again"
     },

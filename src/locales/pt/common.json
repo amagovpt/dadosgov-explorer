@@ -10,9 +10,11 @@
       "subtitle": "Não conseguimos encontrar o recurso que procura.",
       "description": "O conteúdo pode ter sido removido, alterado ou o endereço introduzido poderá não estar correto. Explore os conjuntos de dados disponíveis em dados.gov.pt."
     },
-    "generic": {
-      "title": "Ocorreu um erro",
-      "description": "Algo correu mal. Por favor, tente novamente mais tarde.",
+    "server": {
+      "error": "Erro 500",
+      "title": "Algo não correu como esperado",
+      "subtitle": "Não foi possível concluir o seu pedido neste momento.",
+      "description": "Ocorreu um problema ao processar a informação solicitada. Tente novamente dentro de alguns instantes ou regresse à página inicial para continuar a navegar no portal.",
       "goBack": "Voltar",
       "tryAgain": "Tentar novamente"
     },
