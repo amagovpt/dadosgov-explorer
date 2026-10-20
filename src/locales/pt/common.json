@@ -5,9 +5,10 @@
   "loading": "A carregar dados...",
   "errors": {
     "notFound": {
-      "description": "A página que procura não existe ou foi removida.",
-      "goBack": "Voltar",
-      "goHome": "Ir para o início"
+      "error": "Erro 404",
+      "title": "Página não encontrada",
+      "subtitle": "Não conseguimos encontrar o recurso que procura.",
+      "description": "O conteúdo pode ter sido removido, alterado ou o endereço introduzido poderá não estar correto. Explore os conjuntos de dados disponíveis em dados.gov.pt."
     },
     "generic": {
       "title": "Ocorreu um erro",
@@ -16,8 +17,10 @@
       "tryAgain": "Tentar novamente"
     },
     "resourceNotFound": {
+      "error": "Erro 404",
       "title": "Recurso não encontrado",
-      "description": "O recurso que procura não existe ou foi removido.",
+      "subtitle": "Não conseguimos encontrar o recurso que procura.",
+      "description": "O recurso que procura não existe ou foi removido. Explore os conjuntos de dados disponíveis em dados.gov.pt.",
       "goBack": "Voltar"
     },
     "api": {

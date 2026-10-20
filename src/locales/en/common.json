@@ -5,9 +5,10 @@
   "loading": "Loading data...",
   "errors": {
     "notFound": {
-      "description": "The page you're looking for doesn't exist or has been removed.",
-      "goBack": "Go back",
-      "goHome": "Go to homepage"
+      "error": "Error 404",
+      "title": "Page not found",
+      "subtitle": "We couldn't find the resource you're looking for.",
+      "description": "The content may have been removed or changed, or the address you entered may be incorrect. Explore the datasets available on dados.gov.pt."
     },
     "generic": {
       "title": "Something went wrong",
@@ -16,8 +17,10 @@
       "tryAgain": "Try again"
     },
     "resourceNotFound": {
+      "error": "Error 404",
       "title": "Resource not found",
-      "description": "The resource you're looking for doesn't exist or has been removed.",
+      "subtitle": "We couldn't find the resource you're looking for.",
+      "description": "The resource you're looking for doesn't exist or has been removed. Explore the datasets available on dados.gov.pt.",
       "goBack": "Go back"
     },
     "api": {
