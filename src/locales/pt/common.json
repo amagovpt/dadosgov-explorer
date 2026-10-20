@@ -5,19 +5,24 @@
   "loading": "A carregar dados...",
   "errors": {
     "notFound": {
-      "description": "A página que procura não existe ou foi removida.",
-      "goBack": "Voltar",
-      "goHome": "Ir para o início"
+      "error": "Erro 404",
+      "title": "Página não encontrada",
+      "subtitle": "Não conseguimos encontrar o recurso que procura.",
+      "description": "O conteúdo pode ter sido removido, alterado ou o endereço introduzido poderá não estar correto. Explore os conjuntos de dados disponíveis em dados.gov.pt."
     },
-    "generic": {
-      "title": "Ocorreu um erro",
-      "description": "Algo correu mal. Por favor, tente novamente mais tarde.",
+    "server": {
+      "error": "Erro 500",
+      "title": "Algo não correu como esperado",
+      "subtitle": "Não foi possível concluir o seu pedido neste momento.",
+      "description": "Ocorreu um problema ao processar a informação solicitada. Tente novamente dentro de alguns instantes ou regresse à página inicial para continuar a navegar no portal.",
       "goBack": "Voltar",
-      "tryAgain": "Tentar novamente"
+      "tryAgain": "Recarregar página"
     },
     "resourceNotFound": {
+      "error": "Erro 404",
       "title": "Recurso não encontrado",
-      "description": "O recurso que procura não existe ou foi removido.",
+      "subtitle": "Não conseguimos encontrar o recurso que procura.",
+      "description": "O recurso que procura não existe ou foi removido. Explore os conjuntos de dados disponíveis em dados.gov.pt.",
       "goBack": "Voltar"
     },
     "api": {
@@ -27,10 +32,12 @@
       "connectionFailed": "Falha de conexão com a API",
       "serverError": "Erro interno no servidor",
       "fetchDataFailed": "Falha no pedido de dados do recurso:",
-      "fetchStructureFailed": "Falha no pedido da estrutura do recurso:"
+      "fetchStructureFailed": "Falha no pedido da estrutura do recurso:",
+      "invalidNumber": "formatNumber: valor inválido recebido: \"{{value}}\""
     }
   },
   "header": {
+    "generalBarTitle": "Explorador de Dados do Portal Nacional de Dados Abertos",
     "selectLanguage": "Selecionar idioma",
     "ecosystem": {
       "btn": "Ecossistema",

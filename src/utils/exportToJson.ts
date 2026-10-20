@@ -1,8 +1,6 @@
-export function exportToJson(
-  data: Record<string, unknown>[],
-  filename = "data",
-) {
-  if (!data.length) return;
+export function exportToJson(data: unknown, filename = "data") {
+  if (data === null || data === undefined) return;
+  if (Array.isArray(data) && data.length === 0) return;
 
   const json = JSON.stringify(data, null, 2);
   const blob = new Blob([json], { type: "application/json" });

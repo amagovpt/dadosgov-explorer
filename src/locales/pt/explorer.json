@@ -82,8 +82,6 @@
   },
   "pagination": {
     "itemsPerPage": "Items por página",
-    "itemsPerPageDropdownAriaLabel": "Escolha o número de itens por página",
-    "itemsPerPageListAriaLabel": "Número de itens por página",
     "prev": "Página anterior",
     "next": "Página seguinte"
   },

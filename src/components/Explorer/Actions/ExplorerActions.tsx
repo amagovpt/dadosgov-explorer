@@ -5,6 +5,10 @@ import { useViewContext } from "@/hooks/useViewContext";
 import { ViewType } from "@/services/types";
 import { exportToCsv } from "@/utils/exportToCsv";
 import { exportToJson } from "@/utils/exportToJson";
+import {
+  buildMetricsExportData,
+  buildStructureExportData,
+} from "@/utils/buildExportData";
 import { useTranslation } from "react-i18next";
 import FiltersToogle from "../Filters/FiltersToogle";
 import Button from "@/components/Shared/Button/Button";
@@ -21,7 +25,7 @@ export type ExplorerActionsI = {
 
 export default function ExplorerActions({ selectedView }: ExplorerActionsI) {
   const { t: te } = useTranslation("explorer");
-  const { isLoadingData, data } = useDataContext();
+  const { isLoadingData, data, resourceId, structure } = useDataContext();
   const { isFullscreen, toggleFullscreen } = useViewContext();
   const { exportChartAsPng } = useChartContext();
 
@@ -33,11 +37,20 @@ export default function ExplorerActions({ selectedView }: ExplorerActionsI) {
     }
   }, [hasData, data]);
 
-  const handleClickExportJson = useCallback(() => {
+  const handleClickExportStructureJson = useCallback(() => {
     if (hasData) {
-      exportToJson(data.data);
+      exportToJson(
+        buildStructureExportData(resourceId, structure),
+        "structure",
+      );
     }
-  }, [hasData, data]);
+  }, [hasData, resourceId, structure]);
+
+  const handleClickExportMetricsJson = useCallback(() => {
+    if (hasData) {
+      exportToJson(buildMetricsExportData(structure), "metrics");
+    }
+  }, [hasData, structure]);
 
   const viewAction = useMemo(() => {
     switch (selectedView) {
@@ -70,7 +83,7 @@ export default function ExplorerActions({ selectedView }: ExplorerActionsI) {
           </Button>
         );
       case "structure":
-      case "metrics": // TODO: find some specific action?... maybe...
+      case "metrics":
         return (
           <Button
             hasIcon
@@ -79,7 +92,11 @@ export default function ExplorerActions({ selectedView }: ExplorerActionsI) {
             title={te("actions.exportJson")}
             appearance="link"
             disabled={!hasData}
-            onClick={handleClickExportJson}
+            onClick={
+              selectedView === "structure"
+                ? handleClickExportStructureJson
+                : handleClickExportMetricsJson
+            }
           >
             {te("actions.exportJson")}
           </Button>
@@ -92,7 +109,8 @@ export default function ExplorerActions({ selectedView }: ExplorerActionsI) {
     hasData,
     te,
     handleClickExportCsv,
-    handleClickExportJson,
+    handleClickExportStructureJson,
+    handleClickExportMetricsJson,
     exportChartAsPng,
   ]);
 

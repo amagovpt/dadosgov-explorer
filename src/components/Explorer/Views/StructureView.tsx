@@ -5,7 +5,7 @@ import StatCard, { StatCardI } from "@/components/Shared/Card/StatsCard";
 import { Table } from "@/components/Shared/Table";
 import { useDataContext } from "@/hooks/useDataContext";
 import { fields } from "@/services/consts/structure";
-import { DatasetProfile } from "@/services/types";
+import { buildStructureFields } from "@/utils/buildExportData";
 import { useTranslation } from "react-i18next";
 
 function getScoreStyle(score: number): string {
@@ -14,29 +14,13 @@ function getScoreStyle(score: number): string {
   return "bg-danger-600 text-white";
 }
 
-interface ConvertedColumn {
-  name: string;
-  type: string;
-  format: string;
-  score: number;
-}
-
-function convertColumns(columns: DatasetProfile["columns"]): ConvertedColumn[] {
-  return Object.entries(columns).map(([name, def]) => ({
-    name: name,
-    type: def.python_type,
-    format: def.format,
-    score: def.score,
-  }));
-}
-
 export default function StructureView() {
   const { t: te } = useTranslation("explorer");
 
   const { resourceId, structure } = useDataContext();
 
   const { profile, dataset_id } = structure;
-  const fieldsData = convertColumns(profile.columns);
+  const fieldsData = buildStructureFields(profile.columns);
 
   const stats: StatCardI[] = [
     {

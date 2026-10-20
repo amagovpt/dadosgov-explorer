@@ -11,6 +11,8 @@ export const INITIAL_PAGE = 1;
 
 export const PAGE_SIZES = [10, 50, 200];
 
+export const CHART_PAGE_SIZE = 1000;
+
 export const FilterOperatorCommon = [
   "exact",
   "differs",

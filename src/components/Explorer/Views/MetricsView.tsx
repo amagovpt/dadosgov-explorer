@@ -10,15 +10,8 @@ export default function MetricsView() {
   const { structure } = useDataContext();
   const { t: te } = useTranslation("explorer");
 
-  const {
-    profile,
-    columns,
-    categorical,
-    unique_values,
-    nb_duplicates,
-    encoding,
-    separator,
-  } = structure.profile;
+  const { profile, columns, categorical, unique_values, nb_duplicates, encoding, separator } =
+    structure.profile;
   const columnEntries = Object.entries(profile);
   const categoricalSet = new Set(categorical);
 
@@ -33,13 +26,12 @@ export default function MetricsView() {
     {
       icon: "agora-line-file",
       label: te("views.metrics.encoding"),
-      value: encoding,
+      value: encoding ?? "-",
     },
     {
       icon: "agora-line-layers-menu",
       label: te("views.metrics.separator"),
-      value:
-        separator === "," ? "vírgula" : separator === "\t" ? "tab" : separator,
+      value: (separator === "," ? "vírgula" : separator === "\t" ? "tab" : separator) ?? "-",
     },
   ];
 
@@ -56,24 +48,20 @@ export default function MetricsView() {
   };
 
   if (columnEntries.length === 0) {
-    return (
-      <p className="text-m-regular text-neutral-500">
-        {te("views.metrics.empty")}
-      </p>
-    );
+    return <p className="text-m-regular text-neutral-500">{te("views.metrics.empty")}</p>;
   }
 
   return (
     <div className="flex flex-col gap-32">
       <DataAlerts alerts={alerts} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-32">
+      <div className="grid grid-cols-1 gap-32 sm:grid-cols-3">
         {summaryItems.map((item) => (
           <FileCard key={item.label} {...item} />
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-32">
+      <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-32">
         {columnEntries.map(([name, colProfile]) => (
           <ColumnCard
             key={name}
