@@ -37,26 +37,28 @@ export default function StatusPage({
             </Suspense>
           </Hero.Content>
           <Hero.Content>
-            <div className="flex h-full flex-col gap-16">
-              <Pill
-                variant="primary"
-                size="large"
-                appearance="solid"
-                className="w-fit! bg-secondary-200! text-neutral-900!"
-              >
-                {error}
-              </Pill>
-              <Hero.Title>{title}</Hero.Title>
+            <div className="flex h-full flex-col gap-32">
+              <div className="flex w-full flex-col gap-8">
+                <Pill
+                  variant="primary"
+                  size="large"
+                  appearance="solid"
+                  className="w-fit! bg-secondary-200! text-neutral-900! px-16"
+                >
+                  {error}
+                </Pill>
+                <Hero.Title>{title}</Hero.Title>
+              </div>
               <Hero.Description
                 description={
-                  <div className="flex w-full flex-col gap-16">
+                  <div className="flex w-full flex-col gap-8">
                     <span className="text-m-bold! text-white!">{subtitle}</span>
                     <span className="text-m-regular! text-white!">{description}</span>
                   </div>
                 }
               />
+              {actions && <div className="flex flex-row gap-8">{actions}</div>}
             </div>
-            {actions && <div className="flex flex-row gap-8">{actions}</div>}
           </Hero.Content>
         </div>
       </Hero.Root>
