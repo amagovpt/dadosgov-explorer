@@ -141,44 +141,68 @@ header .navigation-bar-bg {
 
 /* header - ecosystem panel */
 
-li.ecosystem-custom-menu {
-  gap: 8px;
-}
-
-@media (max-width: 767px) {
-  header .panels-menu .search-panel-menu .children-wrapper,
-  header .panels-menu .unauthenticated-panel-menu .children-wrapper {
-    display: none;
+/* The DS jumps straight from one column to four at 768px. */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .ecosystem-panel-menu-content .ecosystem-panel-anchor-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.ecosystem-panel-container {
-  position: fixed;
-  left: 0;
-  right: 0;
-  z-index: 9999;
+.ecosystem-panel-menu-content {
+  max-width: 1216px;
+  margin-inline: auto;
+  padding-inline: 32px;
 }
 
-.ecosystem-custom-panel {
-  background-color: rgb(241, 243, 248);
-  box-shadow: 0px 16px 16px 0px #00000029;
-  border-top: 4px solid var(--Neutral-200, #e1e4ea);
+@media (min-width: 768px) {
+  .ecosystem-panel-menu-content {
+    padding-inline: 64px;
+  }
 }
 
-li.ecosystem-custom-menu .panel-menu-link-wrapper {
-  position: relative;
-  align-self: stretch;
+/* Past 1280px the 1216px box is narrower than the screen, so the gutter comes from
+   the centring — this is what the DS's own `container` utility does. */
+@media (min-width: 1280px) {
+  .ecosystem-panel-menu-content {
+    padding-inline: 0;
+  }
 }
 
-li.ecosystem-custom-menu .panel-menu-link-wrapper:has(a[aria-expanded="true"])::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  height: 4px;
-  width: 100%;
-  background-color: var(--color-primary-600);
+header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="true"])
+  .unauthenticated-panel-menu
+  > .panel-menu-link-wrapper::after {
+  display: none;
+}
+
+header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="true"])
+  .unauthenticated-panel-menu
+  > .panel-menu-link-wrapper
+  .children-wrapper {
+  color: inherit;
+}
+
+header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="true"])
+  .unauthenticated-panel-menu
+  > .panel-menu-link-wrapper
+  .icon-wrapper
+  .solid {
+  display: none;
+}
+
+header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="true"])
+  .unauthenticated-panel-menu
+  > .panel-menu-link-wrapper
+  .icon-wrapper
+  .line {
+  display: block;
+}
+
+header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="true"])
+  .unauthenticated-panel-menu
+  > .panel-menu-link-wrapper
+  .icon-wrapper
+  svg {
+  fill: currentColor;
 }
 
 /* ADS card general */
