@@ -119,7 +119,7 @@ export default function Header(args: HeaderProps) {
 
       {generalBar &&
         createPortal(
-          <span className="general-bar-title self-center text-m-regular text-neutral-900">
+          <span className="general-bar-title self-center max-lg:hidden text-m-regular text-neutral-900">
             {t("header.generalBarTitle")}
           </span>,
           generalBar
