@@ -9,15 +9,20 @@ import { useTranslation } from "react-i18next";
 export type ErrorPageI = {
   error: Error & { digest?: string };
   reset: () => void;
+  context?: string;
 };
 
-export default function ErrorPage({ error, reset }: ErrorPageI) {
+export default function ErrorPage({ error, reset, context }: ErrorPageI) {
   const { t } = useTranslation();
   const router = useRouter();
 
   useEffect(() => {
-    console.error(error);
-  }, [error]);
+    if (context) {
+      console.error(context, error);
+    } else {
+      console.error(error);
+    }
+  }, [error, context]);
 
   return (
     <StatusPage
