@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import formatNumber from "./formatNumber";
+import formatNumber from "@/utils/formatNumber";
 
 describe("formatNumber", () => {
   it("adds thousands separators", () => {

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { data, structure } from "@/test/mock-data";
-import { getData, getStructure } from "./actions";
+import { data, structure } from "../../../../mock-data";
+import { getData, getStructure } from "@/app/[locale]/explorer/[resource_id]/actions";
 
 vi.mock("@/app/i18n", () => ({
   default: async () => ({ t: (key: string) => key }),

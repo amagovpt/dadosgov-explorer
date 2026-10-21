@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { DatasetProfileResponse, FilterOperatorType } from "@/services/types";
-import { structure } from "@/test/mock-data";
-import { useFilterValidation } from "./useFilterValidation";
+import { structure } from "../mock-data";
+import { useFilterValidation } from "@/hooks/useFilterValidation";
 
 const t = ((key: string) => key) as never;
 

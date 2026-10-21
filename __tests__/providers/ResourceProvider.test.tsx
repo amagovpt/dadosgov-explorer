@@ -5,8 +5,8 @@ import { useDataContext } from "@/hooks/useDataContext";
 import { useFiltersContext } from "@/hooks/useFiltersContext";
 import { usePaginationContext } from "@/hooks/usePaginationContext";
 import { useViewContext } from "@/hooks/useViewContext";
-import { data, structure } from "@/test/mock-data";
-import { ResourceProvider } from "./ResourceProvider";
+import { data, structure } from "../mock-data";
+import { ResourceProvider } from "@/providers/ResourceProvider";
 
 const mocks = vi.hoisted(() => ({
   getData: vi.fn(),

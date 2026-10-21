@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { useTranslation } from "react-i18next";
 import { describe, expect, it } from "vitest";
-import TranslationsProvider from "./TranslationProvider";
+import TranslationsProvider from "@/providers/TranslationProvider";
 
 function Title() {
   const { t } = useTranslation("common");

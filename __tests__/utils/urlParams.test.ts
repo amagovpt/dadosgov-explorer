@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { prepareUrlSearchParams } from "./urlParams";
+import { prepareUrlSearchParams } from "@/utils/urlParams";
 
 describe("prepareUrlSearchParams", () => {
   it("includes page and page size", () => {
@@ -19,7 +19,15 @@ describe("prepareUrlSearchParams", () => {
   });
 
   it("uses the selected filter operator", () => {
-    const params = prepareUrlSearchParams(1, 10, null, null, ["age"], { age: "greater" }, { age: "30" });
+    const params = prepareUrlSearchParams(
+      1,
+      10,
+      null,
+      null,
+      ["age"],
+      { age: "greater" },
+      { age: "30" }
+    );
     expect(params.get("age__greater")).toBe("30");
   });
 

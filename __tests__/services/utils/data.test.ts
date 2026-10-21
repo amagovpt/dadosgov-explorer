@@ -6,8 +6,13 @@ import {
   FilterOperatorNumber,
   FilterOperatorText,
 } from "@/services/consts/explorer";
-import { structure } from "@/test/mock-data";
-import { getDataType, getInitialOperator, getOperatorOptions, toBoolean } from "./data";
+import { structure } from "../../mock-data";
+import {
+  getDataType,
+  getInitialOperator,
+  getOperatorOptions,
+  toBoolean,
+} from "@/services/utils/data";
 
 describe("getDataType", () => {
   it("returns the column format and python type", () => {

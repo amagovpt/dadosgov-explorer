@@ -2,9 +2,14 @@ import { act, renderHook } from "@testing-library/react";
 import { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useChartContext } from "@/hooks/useChartContext";
-import { data, structure } from "@/test/mock-data";
-import { ChartProvider } from "./ChartProvider";
-import { DataContext, DataContextType, ViewContext, ViewContextType } from "./ResourceProvider";
+import { data, structure } from "../mock-data";
+import { ChartProvider } from "@/providers/ChartProvider";
+import {
+  DataContext,
+  DataContextType,
+  ViewContext,
+  ViewContextType,
+} from "@/providers/ResourceProvider";
 
 const mocks = vi.hoisted(() => ({ searchParams: new URLSearchParams() }));
 

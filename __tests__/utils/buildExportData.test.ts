@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { structure } from "@/test/mock-data";
-import { buildMetricsExportData, buildStructureExportData } from "./buildExportData";
+import { structure } from "../mock-data";
+import { buildMetricsExportData, buildStructureExportData } from "@/utils/buildExportData";
 
 describe("buildStructureExportData", () => {
   it("summarises the resource structure", () => {

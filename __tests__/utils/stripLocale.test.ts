@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { stripLocale } from "./stripLocale";
+import { stripLocale } from "@/utils/stripLocale";
 
 describe("stripLocale", () => {
   it("removes a supported locale prefix", () => {

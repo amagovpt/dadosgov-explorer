@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { exportToCsv } from "./exportToCsv";
+import { exportToCsv } from "@/utils/exportToCsv";
 
 describe("exportToCsv", () => {
   let blobs: Blob[];
