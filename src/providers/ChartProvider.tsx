@@ -24,6 +24,8 @@ import { CHART_URL_PARAMS } from "@/services/consts/urlParams";
 
 const DEFAULT_CHART: ChartType = "Line";
 
+const NUMERIC_PYTHON_TYPES = ["int", "float"];
+
 export type ChartContextType = {
   keys: string[];
   numericKeys: string[];
@@ -53,7 +55,7 @@ export const ChartContext = createContext<ChartContextType | undefined>(
 
 export function ChartProvider({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
-  const { data: resourceData } = useDataContext();
+  const { data: resourceData, structure } = useDataContext();
   const { setExtraUrlParams } = useViewContext();
 
   const rows = resourceData?.data ?? [];
@@ -64,8 +66,11 @@ export function ChartProvider({ children }: { children: ReactNode }) {
   }, [rows]);
 
   const numericKeys = useMemo(
-    () => keys.filter((k) => rows.some((d) => !isNaN(Number(d[k])))),
-    [keys, rows],
+    () =>
+      keys.filter((k) =>
+        NUMERIC_PYTHON_TYPES.includes(structure?.profile.columns?.[k]?.python_type ?? ""),
+      ),
+    [keys, structure],
   );
 
   const [xAxisKey, setXAxisKey] = useState<string>(
