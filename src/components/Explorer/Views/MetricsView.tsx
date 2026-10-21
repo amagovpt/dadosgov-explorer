@@ -21,7 +21,7 @@ export default function MetricsView() {
     {
       icon: "agora-line-copy",
       label: te("views.metrics.duplicates"),
-      value: nb_duplicates,
+      value: String(nb_duplicates),
     },
     {
       icon: "agora-line-file",
