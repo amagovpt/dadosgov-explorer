@@ -24,7 +24,7 @@ export interface DatasetProfile {
   separator: string;
   categorical: string[];
   total_lines: number;
-  nb_duplicates: string;
+  nb_duplicates: number | string;
   unique_values: Record<string, string[]>;
   columns_fields: Record<string, ColumnDefinition>;
   columns_labels: Record<string, ColumnDefinition>;

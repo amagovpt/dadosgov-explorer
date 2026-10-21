@@ -68,7 +68,7 @@ export interface MetricsColumnExport {
 }
 
 export interface MetricsExportData {
-  duplicates: string;
+  duplicates: number | string;
   encoding: string;
   separator: string;
   columns: MetricsColumnExport[];
