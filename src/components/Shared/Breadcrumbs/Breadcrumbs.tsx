@@ -19,14 +19,10 @@ export default function Breadcrumbs({
   const { t } = useTranslation("common");
   const { addBasePath } = useBasePath();
 
-  const createBreadcrumbs = (
-    path: string,
-  ): { label: ReactNode; url: string }[] => {
+  const createBreadcrumbs = (path: string): { label: ReactNode; url: string }[] => {
     const knownLocales = ["pt", "en"];
 
-    let pathNames = path
-      .split("/", limit === undefined ? undefined : limit + 1)
-      .filter(Boolean);
+    let pathNames = path.split("/", limit === undefined ? undefined : limit + 1).filter(Boolean);
 
     if (knownLocales.includes(pathNames[0])) {
       pathNames = pathNames.slice(1);
@@ -63,17 +59,13 @@ export default function Breadcrumbs({
     return [
       {
         label: <>{t("home")}</>,
-        url: addBasePath("/"),
+        url: "#", //addBasePath("/"),
       },
       ...items,
     ];
   };
 
   return (
-    <BreadcrumbADS
-      items={createBreadcrumbs(path)}
-      darkMode={!darkmode}
-      className={className}
-    />
+    <BreadcrumbADS items={createBreadcrumbs(path)} darkMode={!darkmode} className={className} />
   );
 }
