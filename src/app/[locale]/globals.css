@@ -210,3 +210,9 @@ header[data-auth-page][data-no-user]:has(.ecosystem-panel-menu[aria-expanded="tr
 div.card-general {
   width: 100% !important;
 }
+
+/* ADS modal */
+
+div.agora-dialog {
+  z-index: 9999 !important;
+}
