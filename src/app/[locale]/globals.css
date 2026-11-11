@@ -216,3 +216,18 @@ div.card-general {
 div.agora-dialog {
   z-index: 9999 !important;
 }
+
+/* ADS Toast List */
+/* Keep the live region mounted without letting its padding block page clicks. */
+
+.agora-toast-list {
+  pointer-events: none;
+}
+
+.agora-toast-list:empty {
+  padding: 0;
+}
+
+.agora-toast-list > .agora-toast {
+  pointer-events: auto;
+}
