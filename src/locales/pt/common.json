@@ -38,6 +38,7 @@
   },
   "header": {
     "generalBarTitle": "Explorador de Dados do Portal Nacional de Dados Abertos",
+    "generalNavigation": "Opções de navegação geral",
     "selectLanguage": "Selecionar idioma",
     "ecosystem": {
       "btn": "Ecossistema",

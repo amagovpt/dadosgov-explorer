@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { Breadcrumb as BreadcrumbADS } from "@ama-pt/agora-design-system";
 import { useTranslation } from "react-i18next";
 import useBasePath from "@/hooks/useBasePath";
+import { i18nConfig } from "@/config/i18nConfig";
 
 export default function Breadcrumbs({
   path,
@@ -20,11 +21,9 @@ export default function Breadcrumbs({
   const { addBasePath } = useBasePath();
 
   const createBreadcrumbs = (path: string): { label: ReactNode; url: string }[] => {
-    const knownLocales = ["pt", "en"];
-
     let pathNames = path.split("/", limit === undefined ? undefined : limit + 1).filter(Boolean);
 
-    if (knownLocales.includes(pathNames[0])) {
+    if (i18nConfig.locales.includes(pathNames[0])) {
       pathNames = pathNames.slice(1);
     }
 
