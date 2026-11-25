@@ -10,6 +10,11 @@
 /* Tailwind v4 utilities — last, so portal utilities override DS component rules */
 @import "tailwindcss/utilities";
 
+/*
+  Tailwind doesn't scan node_modules and the ADS theme doesn't have these utilities.
+*/
+@source inline("md:hidden md:block");
+
 @theme {
   /* Spacing steps outside the Agora scale (0, 8, 16, 24, 32, …). */
   --spacing-2: 2px;

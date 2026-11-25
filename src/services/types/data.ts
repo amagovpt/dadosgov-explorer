@@ -83,3 +83,7 @@ export type FilterOperatorDateType = (typeof FilterOperatorDate)[number];
 export type FilterOperatorBoolType = (typeof FilterOperatorBool)[number];
 
 export type FilterOperatorType = (typeof FilterOperatorAll)[number];
+
+// -----------------------------------------------------------------------
+
+export type SortType = "string" | "numeric" | "date";
