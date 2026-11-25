@@ -12,7 +12,7 @@ export default function ExplorerPageContent() {
   return (
     <main className="flex w-full flex-col items-center gap-64 pb-96">
       <Hero.Root>
-        <Hero.Breadcrumb path={path} limit={2} />
+        <Hero.Breadcrumb path={path} limit={2} isNonClickable />
         <Hero.Content>
           <Hero.Title>{te("title")}</Hero.Title>
           <Hero.Description description={te("description")} />
