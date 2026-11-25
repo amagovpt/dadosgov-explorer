@@ -1,12 +1,14 @@
 "use client";
 
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import BreadcrumbsStatic from "../Breadcrumbs/BreadcrumbsStatic";
 
 export interface IHeroBreadcrumbProps {
   className?: string;
   limit?: number;
   darkmode?: boolean;
   path: string;
+  isNonClickable?: boolean;
 }
 
 /**
@@ -21,13 +23,9 @@ export default function HeroBreadcrumb({
   limit,
   darkmode,
   path,
+  isNonClickable = false,
 }: IHeroBreadcrumbProps) {
-  return (
-    <Breadcrumbs
-      path={path}
-      darkmode={darkmode}
-      limit={limit}
-      className={className}
-    />
-  );
+  const Component = isNonClickable ? BreadcrumbsStatic : Breadcrumbs;
+
+  return <Component path={path} darkmode={darkmode} limit={limit} className={className} />;
 }
