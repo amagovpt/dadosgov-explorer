@@ -67,16 +67,17 @@ export default function Header(args: HeaderProps) {
           <Institutional>{t("title")}</Institutional>
         </Brand>
 
-        <GeneralBar aria-label="Utilities menu">
+        <GeneralBar aria-label={t("header.generalNavigation")}>
           <Languages aria-label={t("header.selectLanguage")} onChange={handleLanguageChange}>
             {languages.map((lang) => (
               <Language
                 key={lang.value}
                 value={lang.value}
-                icon={FLAGS[lang.value]}
+                //icon={FLAGS[lang.value]}
                 label={lang.label}
                 abbr={lang.abbr}
                 checked={selectedLanguage === lang.value}
+
               />
             ))}
           </Languages>
@@ -119,7 +120,7 @@ export default function Header(args: HeaderProps) {
 
       {generalBar &&
         createPortal(
-          <span className="general-bar-title self-center max-lg:hidden text-m-regular text-neutral-900">
+          <span className="general-bar-title self-center text-m-regular text-neutral-900 max-lg:hidden">
             {t("header.generalBarTitle")}
           </span>,
           generalBar

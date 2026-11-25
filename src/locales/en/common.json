@@ -38,6 +38,7 @@
   },
   "header": {
     "generalBarTitle": "Data Explorer of the National Open Data Portal",
+    "generalNavigation": "General navigation options",
     "selectLanguage": "Select language",
     "ecosystem": {
       "btn": "Ecosystem",
