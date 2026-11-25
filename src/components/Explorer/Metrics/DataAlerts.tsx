@@ -1,6 +1,7 @@
 "use client";
 
 import { useDataContext } from "@/hooks/useDataContext";
+import { TFunction } from "i18next";
 import { useMemo } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Typograph } from "@/components/Shared/Typograph/Typograph";
@@ -33,9 +34,7 @@ export type AlertI = {
   columns?: string[];
 };
 
-export function useDataAlerts(
-  te: (key: string, options?: Record<string, any>) => string,
-) {
+export function useDataAlerts(te: TFunction<"explorer", undefined>) {
   const { structure } = useDataContext();
 
   return useMemo(() => {
