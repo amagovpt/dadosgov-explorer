@@ -10,8 +10,8 @@ Referência dos valores de `python_type` e `format` encontrados nos perfis de da
 | `string`    | `url`                     | Texto livre                          | `https://...`         | Website                 |
 | `string`    | `email`                   | Texto livre                          | `user@example.com`    | email                   |
 | `string`    | `latlon_wgs`              | Texto livre                          | `lat,lon`             | Localização Geográfica  |
-| `string`    | `latitude_wgs`            | Texto livre                          | `lat`                 | Localização Geográfica  |
-| `string`    | `longitude_wgs`           | Texto livre                          | `lon`                 | Localização Geográfica  |
+| `string`    | `latitude_wgs`            | Texto livre                          | -                     | Localização Geográfica  |
+| `string`    | `longitude_wgs`           | Texto livre                          | -                     | Localização Geográfica  |
 | `string`    | `pays`                    | Texto livre                          | -                     | NUTS0_desig             |
 | `string`    | `iso_country_code_alpha2` | Máximo 2 caracteres                  | `PT`                  | NUTS0_codigo            |
 | `int`       | `int`                     | Número inteiro (`^-?\d+$`)           | `0`                   | OBJECTID, codigo_rua    |
@@ -56,6 +56,19 @@ Estes formatos aparecem em `columns_fields` ou `columns_labels` mas não em `col
 | `insee_ape700`    | columns_labels |
 | `uai`             | columns_labels |
 
+## Operadores e ordenação por tipo
+
+Os operadores de filtro e o tipo de ordenação dependem do `format` e, se este não decidir, do `python_type`:
+
+| Tipo | Operadores | Ordenação |
+| ---- | ---------- | --------- |
+| Texto (`string` e formatos de texto como `url`, `pays`, `latlon_wgs`) | `contains`, `notcontains`, `exact`, `differs`, `isnull`, `isnotnull` | Alfabética |
+| Número (`int`, `float`) | `exact`, `differs`, `isnull`, `isnotnull`, `less`, `strictly_less`, `strictly_greater`, `greater` | Numérica |
+| Data (`date`, `datetime`, `year`, `datetime_naive`) | Os mesmos dos números | Por data |
+| Booleano (`bool`) | `exact`, `differs`, `isnull`, `isnotnull` | Alfabética |
+
+Um `python_type` desconhecido só recebe os operadores comuns (`exact`, `differs`, `isnull`, `isnotnull`).
+
 ## Como adicionar novos formatos
 
 Quando um novo valor de `format` ou `python_type` aparecer na API:
@@ -70,11 +83,11 @@ Quando um novo valor de `format` ou `python_type` aparecer na API:
 ## Documentação
 
 - [README](../../README.md) - descrição geral do projeto
-- [Arquitetura](architecture.md) - fluxo de dados, providers, server actions, validação e gestão de erros
+- [Arquitetura](architecture.md) - fluxo de dados, providers, server actions, parâmetros do URL, validação e gestão de erros
 - [Tipos e formatos de dados](data-formats.md) - referência dos formatos devolvidos pela Tabular API e como são validados
 
 ## ENglish Version
 
-- [README](../EN/README) - general project overview
-- [Arquitetura](../EN/architecture.md) - data flow, providers, server actions, validation, and error handling
+- [README](../EN/README.md) - general project overview
+- [Arquitetura](../EN/architecture.md) - data flow, providers, server actions, URL parameters, validation, and error handling
 - [Tipos e formatos de dados](../EN/data-formats.md) - reference for formats returned by the Tabular API and how they are validated
