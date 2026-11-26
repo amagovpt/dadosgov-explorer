@@ -16,7 +16,7 @@ A interface está disponível em português e inglês, adaptando-se automaticame
 
 ### Tabela
 
-A vista principal. Mostra os dados em formato tabular com paginação, ordenação por coluna e a possibilidade de escolher quais as colunas visíveis. Cada coluna pode ser filtrada individualmente, com operadores que variam consoante o tipo de dados (texto, número, data ou booleano). Os filtros são validados localmente antes de serem enviados à API.
+A vista principal. Mostra os dados em formato tabular com paginação (10, 50 ou 200 linhas por página), ordenação por coluna e a possibilidade de escolher quais as colunas visíveis. Cada clique no cabeçalho de uma coluna alterna entre ordem crescente, decrescente e sem ordenação. Cada coluna pode ser filtrada individualmente, com operadores que variam consoante o tipo de dados (texto, número, data ou booleano). Os filtros são validados localmente antes de serem enviados à API.
 
 ### Estrutura
 
@@ -24,7 +24,7 @@ Apresenta a informação técnica do recurso: número total de registos, identif
 
 ### Métricas
 
-Mostra um resumo estatístico do recurso e de cada coluna. Começa com um bloco de alertas de qualidade dos dados que destaca automaticamente problemas como colunas com muitos valores em falta, possíveis outliers, colunas com baixa confiança na deteção do tipo e percentagem elevada de registos duplicados. Cada alerta identifica as colunas afetadas. Se não houver problemas, o bloco não aparece.
+Mostra um resumo estatístico do recurso e de cada coluna. Começa com um bloco de alertas de qualidade dos dados que destaca automaticamente três situações: colunas com mais de 20% de valores em falta, colunas com confiança inferior a 50% na deteção do tipo e mais de 10% de registos duplicados. Os alertas de colunas identificam as colunas afetadas. Se não houver problemas, o bloco não aparece.
 
 A nível global, apresenta o número de duplicados, a codificação do ficheiro e o separador utilizado. Por coluna, mostra valores distintos, valores em falta, e para colunas numéricas inclui o mínimo, máximo, média e desvio padrão. As colunas categóricas mostram os valores mais frequentes com barras proporcionais e, quando têm poucos valores únicos, listam-nos como badges.
 
@@ -32,7 +32,7 @@ A nível global, apresenta o número de duplicados, a codificação do ficheiro 
 
 Permite visualizar os dados num de oito tipos de gráfico: linha, barras, radar, anel, área polar, bolhas, circular e dispersão. O utilizador escolhe as colunas para os eixos e, nos tipos de gráfico que o suportam, pode selecionar múltiplas colunas no eixo Y para sobrepor datasets no mesmo gráfico, cada um com uma cor distinta da paleta. Nos gráficos proporcionais (anel, circular e área polar) a seleção é limitada a uma coluna.
 
-Inclui paginação própria, exportação do gráfico como imagem PNG e modo de ecrã inteiro para apresentações ou análise detalhada. A configuração do gráfico (tipo, eixos selecionados) é persistida no URL, permitindo partilhar uma visualização específica.
+Inclui paginação própria (cada página do gráfico tem até 1000 registos), exportação do gráfico como imagem PNG e modo de ecrã inteiro para apresentações ou análise detalhada. A configuração do gráfico (tipo, eixos selecionados e página) é persistida no URL, permitindo partilhar uma visualização específica.
 
 ## Funcionalidades
 
@@ -41,15 +41,53 @@ Inclui paginação própria, exportação do gráfico como imagem PNG e modo de 
 - Ordenação por qualquer coluna, refletida no URL
 - Paginação com controlo do número de itens por página
 - Visibilidade de colunas configurável
-- Exportação dos dados visíveis para ficheiro CSV ou JSON
+- Exportação dos dados da tabela para CSV
+- Exportação da estrutura e das métricas para JSON
 - Exportação do gráfico como imagem PNG
 - Comparação de múltiplas colunas no mesmo gráfico
-- Modo de ecrã inteiro para gráficos
+- Modo de ecrã inteiro disponível em todas as vistas
 - Alertas automáticos de qualidade dos dados
 - Estado completo da consulta persistido no URL (vista ativa, filtros, ordenação, página, colunas visíveis, configuração do gráfico)
-- Interface bilingue em português e inglês
+- Interface bilingue em português e inglês, com seletor de idioma no cabeçalho
 - Páginas de erro dedicadas para recursos não encontrados e erros genéricos
 - Design responsivo que se adapta a dispositivos móveis e desktop
+
+## Como usar
+
+Cada recurso tem o seu próprio endereço, no formato `/{idioma}/explorer/{id_do_recurso}`, por exemplo `/pt/explorer/<id>`. O `id_do_recurso` é o identificador do recurso no dados.gov.pt. A aplicação não tem página inicial: abrir a raiz do site ou um endereço inexistente leva o utilizador para a página de erro 404 no seu idioma.
+
+O idioma é escolhido pelo prefixo do URL (`pt` ou `en`). Quando não existe prefixo, é usado o idioma do browser, e o português é o idioma por defeito.
+
+## Executar localmente
+
+Requisitos: Node.js 22 ou superior e acesso a uma instância da Tabular API.
+
+```bash
+npm install
+npm run dev
+```
+
+A aplicação fica disponível em `http://localhost:3031`. Outros comandos:
+
+- `npm run build` e `npm start` - compilar e servir a versão de produção (porta 3031)
+- `npm run lint` - correr o ESLint
+- `npm test` - correr os testes com Vitest (`npm run test:watch` para modo interativo)
+
+### Configuração
+
+A aplicação lê uma única variável de ambiente, `TABULAR_API_URL`, com o endereço da Tabular API no formato `host:porta`, sem protocolo (a aplicação acrescenta `http://`). Se não estiver definida, usa `http://127.0.0.1:8005`.
+
+```bash
+TABULAR_API_URL=127.0.0.1:8005
+```
+
+### Docker
+
+O `Dockerfile` na raiz faz uma build em vários passos e serve a aplicação na porta 3030. O `docker-compose.yml` liga o contentor à rede Docker onde corre a Tabular API (`api-tabular-pt_default`), define `TABULAR_API_URL` e guarda os logs em `./logs`.
+
+```bash
+docker compose up --build -d
+```
 
 ## Arquitetura
 
@@ -64,20 +102,20 @@ O fluxo de dados segue este caminho:
 - Next.js 16 com App Router
 - React 19
 - TypeScript
-- Tailwind CSS 3
+- Tailwind CSS 4
 - Chart.js com react-chartjs-2
 - Zod 4 para validação
-- react-i18next para internacionalização
+- react-i18next e next-i18n-router para internacionalização
 - Agora Design System
+- Vitest e Testing Library para testes
 
 ## Documentação
 
-- [README](docs/EN/README.md) - descrição geral do projeto
-- [Arquitetura](docs/PT/architecture.md) - fluxo de dados, providers, server actions, validação e gestão de erros
+- [Arquitetura](docs/PT/architecture.md) - fluxo de dados, providers, server actions, parâmetros do URL, validação e gestão de erros
 - [Tipos e formatos de dados](docs/PT/data-formats.md) - referência dos formatos devolvidos pela Tabular API e como são validados
 
 ## ENglish Version
 
-- [README](docs/EN/README) - general project overview
-- [Arquitetura](docs/EN/architecture.md) - data flow, providers, server actions, validation, and error handling
+- [README](docs/EN/README.md) - general project overview
+- [Arquitetura](docs/EN/architecture.md) - data flow, providers, server actions, URL parameters, validation, and error handling
 - [Tipos e formatos de dados](docs/EN/data-formats.md) - reference for formats returned by the Tabular API and how they are validated
